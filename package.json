@@ -1,0 +1,16 @@
+{
+  "name": "expressport",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"cd client && npm run dev\" \"cd server && nodemon src/express.js\"",
+    "build": "cd client && vite build",
+    "start": "NODE_ENV=production node server/src/express.js",
+    "install-base": "cd client && npm install && cd ../server && npm install",
+    "install-dev": "cd client && npm install && cd ../server && npm install && cd .. && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "nodemon": "^3.1.10"
+  }
+}
