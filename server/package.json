@@ -1,11 +1,12 @@
 {
   "name": "server",
-  "main": "src/express.js",
-  "scripts": {
-    "start": "node js/express.js"
-  },
+  "private": true,
   "type": "module",
+  "scripts": {
+    "dev": "nodemon src/express.js"
+  },
   "dependencies": {
+    "nodemon": "^3.1.10",
     "cors": "^2.8.5",
     "express": "^5.1.0"
   }
