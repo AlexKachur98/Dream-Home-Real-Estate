@@ -8,7 +8,10 @@ import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
 const PRIMARY_LINKS = [
-    { label: 'Dashboard', to: '/' },
+    { label: 'Home', to: '/' },
+    { label: 'Staff', to: '/staff' },
+    { label: 'Branches', to: '/branches' },
+    { label: 'Clients', to: '/clients' },
 ];
 
 export default function Layout() {
