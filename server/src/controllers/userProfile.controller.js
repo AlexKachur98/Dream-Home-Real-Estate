@@ -1,4 +1,5 @@
 
+import express from 'express';
 import UserProfileModel from '../models/userProfile.model.js';
 import UserModel from '../models/user.model.js';
 
@@ -10,8 +11,8 @@ export default {
   
   /**
    * Get user profile by user ID
-   * @param {Object} req - Express request object
-   * @param {Object} res - Express response object
+   * @param {express.Request} req - Express request object
+   * @param {express.Response} res - Express response object
    */
   async getProfileByUserId(req, res) {
     try {
@@ -28,8 +29,8 @@ export default {
 
   /**
    * Create or update user profile (upsert)
-   * @param {Object} req - Express request object
-   * @param {Object} res - Express response object
+   * @param {express.Request} req - Express request object
+   * @param {express.Response} res - Express response object
    */
   async upsertUserProfile(req, res) {
     try {
@@ -61,8 +62,8 @@ export default {
 
   /**
    * Delete user profile by user ID
-   * @param {Object} req - Express request object
-   * @param {Object} res - Express response object
+   * @param {express.Request} req - Express request object
+   * @param {express.Response} res - Express response object
    */
   async deleteUserProfile(req, res) {
     try {
