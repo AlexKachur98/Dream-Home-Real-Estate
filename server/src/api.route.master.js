@@ -11,13 +11,15 @@ import profileRouter from './routes/userProfile.route.js';
  * @param {express.Express} app
  */
 export default (app) => {
+  app
+    .use('/api/auth', authRouter)
 
-  app.use('/api/test', linksRouter);
-  app.use('/api/users', userRouter);
-  app.use('/api/profiles', profileRouter);
+    .use('/api/test', linksRouter)
+    .use('/api/users', userRouter)
+    .use('/api/profiles', profileRouter)
 
-  app.get('/api/health', (_, res) => {
-    res.status(200).json({ status: 'OK' });
-  });
+    .get('/api/health', (_, res) => {
+      res.status(200).json({ status: 'OK' });
+    });
 
 };
