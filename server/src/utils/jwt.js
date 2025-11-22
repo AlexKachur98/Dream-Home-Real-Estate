@@ -19,7 +19,7 @@ function generateToken(user) {
         : join(process.cwd(), '../etc/secrets/ec-private-key.pem');
 
     return jwt.sign(
-        { _id: user._id },
+        { user_id: user.user_id },
         fs.readFileSync(key_path, 'utf8'),
         { algorithm: 'ES512', expiresIn: '30d' }
     );

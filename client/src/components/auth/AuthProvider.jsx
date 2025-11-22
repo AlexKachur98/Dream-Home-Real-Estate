@@ -104,12 +104,12 @@ export default function AuthProvider({ children }) {
    *   - message: optional error message if registration failed
    * @throws Will catch and return fetch errors or network failures as {success: false, message: string}
    */
-  async function register(username, email, password) {
+  async function register(username, email, password, role) {
     try {
       const res = await fetch('/api/users/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, email, password }),
+        body: JSON.stringify({ username, email, password, role }),
         credentials: 'include'
       });
 

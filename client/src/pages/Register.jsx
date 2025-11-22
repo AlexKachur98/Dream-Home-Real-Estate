@@ -48,7 +48,8 @@ export default function Register() {
     const result = await register(
       `${formData.firstName} ${formData.lastName}`, // Combine first and last name as username
       formData.email,
-      formData.password
+      formData.password,
+      formData.role
     );
 
     if (result.success) {

@@ -202,7 +202,7 @@ class Model {
  * Factory function to create a new Model instance
  * @param {string} tableName - Name of the table
  * @param {Object} classOptions - Class options
- * @returns {Model} Model instance
+ * 
  */
 export default async function createModel(tableName, classOptions = {}) {
   return new Model(tableName, classOptions);
