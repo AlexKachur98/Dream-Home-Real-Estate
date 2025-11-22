@@ -36,12 +36,10 @@ export default {
    */
   async createUser(req, res) {
     try {
-      console.log('Creating user with data:', req.body);
       const { username, email, password, role } = req.body;
-      if (!username || !email || !password) {
-        return res.status(400).json({ message: 'Username, email, and password are required.' });
+      if (!username || !email || !password || !role) {
+        return res.status(400).json({ message: 'Username, email, password, and role are required.' });
       };
-
 
       const existingUser = await UserModel.findOne({ email });
       if (existingUser) return res.status(400).json({ message: 'User already exists.' });
@@ -51,7 +49,7 @@ export default {
         username,
         email,
         password_hash,
-        role: role || 'user',
+        role: role || 'agent',
         is_active: 1,
         is_approved: 1
       };
