@@ -17,6 +17,9 @@ import Login from './pages/Login.jsx';
 import Logout from './pages/Logout.jsx';
 import Register from './pages/Register.jsx';
 
+import ShowingsAdmin from './components/ShowingsAdmin.jsx';
+import InquiriesAdmin from './components/InquiriesAdmin.jsx';
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -31,8 +34,15 @@ export default function App() {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="logout" element={<Logout />} />
+
+
+
+        </Route>
+        <Route path="/admin" element={<Layout />}>
+          <Route path="/admin/showings" element={<ShowingsAdmin />} />
+          <Route path="/admin/inquiries" element={<InquiriesAdmin />} />
         </Route>
       </Routes>
     </BrowserRouter>
   );
-}
+};
