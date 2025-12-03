@@ -107,7 +107,7 @@ export default function PropertyDetails() {
         },
         body: JSON.stringify({
           propertyId,
-          requestedTime: new Date().toISOString(),
+          requestedTime: new Date().toLocaleTimeString(), // Current date/time as placeholder
           name,
           email,
           phone

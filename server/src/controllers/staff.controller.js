@@ -1,5 +1,6 @@
 
 import StaffModel from '../models/staff.model.js';
+import pool from '../mysql/mysql.js';
 
 export default {
   /**
@@ -10,8 +11,9 @@ export default {
       const staffModel = await StaffModel;
       const staffRecords = await staffModel.find({ orderBy: 'last_name ASC' });
       return res.status(200).json(staffRecords);
-    } catch (error) {
-      console.error('Error fetching staff records:', error);
+    }
+    catch (error) {
+      // console.error('Error fetching staff records:', error);
       return res.status(500).json({
         message: 'Error fetching staff records',
         error: error.message
@@ -24,21 +26,55 @@ export default {
    */
   createStaff: async (req, res) => {
     try {
-      const staffModel = await StaffModel;
       const staffData = req.body;
 
       // Validate required fields
-      if (!staffData.staff_id || !staffData.first_name || !staffData.last_name || !staffData.email) {
+      if (!staffData.staff_id || !staffData.first_name || !staffData.last_name || !staffData.email || !staffData.branch_no) {
         return res.status(400).json({ message: 'Missing required fields.' });
       }
+      const connection = await pool.getConnection();
 
-      const newStaff = await staffModel.create(staffData);
-      return res.status(201).json({
-        message: 'Staff member created successfully',
-        staff: newStaff
-      });
-    } catch (error) {
-      console.error('Error creating staff member:', error);
+      try {
+        await connection.execute(
+          'CALL Staff_hire_sp(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, @success, @message)',
+          [
+            staffData.staff_id,
+            staffData.first_name,
+            staffData.last_name,
+            staffData.position,
+            staffData.branch_no,
+            staffData.date_of_birth,
+            staffData.salary,
+            staffData.telephone,
+            staffData.mobile,
+            staffData.email
+          ]
+        );
+
+        const [output] = await connection.execute('SELECT @success AS success, @message AS message');
+        const { success, message } = output[0];
+
+        if (success) {
+          const staffModel = await StaffModel;
+          // console.log('New staff member created with ID:', staffData.staff_id);
+          const newStaff = await staffModel.findOne({ staff_id: staffData.staff_id });
+
+          return res.status(201).json({
+            message: message,
+            staff: newStaff
+          });
+
+        }
+        else return res.status(400).json({
+          message: message
+        });
+
+      } finally {
+        connection.release();
+      }
+    }
+    catch (error) {
+      // console.error('Error creating staff member:', error);
       return res.status(500).json({
         message: 'Error creating staff member',
         error: error.message
