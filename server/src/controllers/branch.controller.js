@@ -1,6 +1,6 @@
 
 import BranchModel from '../models/branch.model.js';
-import pool from '../mysql/pool.js'; // Import your database connection pool
+import pool from '../mysql/mysql.js';
 
 
 export default {
